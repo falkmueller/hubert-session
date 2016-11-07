@@ -9,6 +9,8 @@ return array(
         "session" => array(
             'remember_me_seconds' => 1800,
             'name'                => 'zf2',
+            'validate_user_agend' => true,
+            'validate_remote_addr' => true
         )
     )
 );
