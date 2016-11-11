@@ -40,8 +40,8 @@ $config = array(
                 "route" => "/", 
                 "method" => "GET|POST", 
                 "target" => function($request, $response, $args){
-                    $container = $this->getContainer();
-                    if (isset($container["session"]()->name)){
+                    $container = hubert()->container();     
+                    if (isset($container->session()->name)){
                         echo "Hello, ".$container["session"]()->name;
                     } else {
                         $link = $container["router"]->get("setName", ["name" => "hubert"]);
@@ -53,9 +53,9 @@ $config = array(
                 "route" => "/name/[:name]", 
                 "method" => "GET|POST", 
                 "target" => function($request, $response, $args){
-                    $container = $this->getContainer();     
+                    $container = hubert()->container();     
                     $name = $args["name"];
-                    $container["session"]()->name = $name;
+                    $container->session()->name = $name;
                     echo "Name {$name} are set in session.<br/>";
                     $link = $container["router"]->get("home");
                         echo "<a href='{$link}'>retrun</a>";
@@ -63,8 +63,8 @@ $config = array(
         ),
 );
 
-$app->loadConfig($config);
-$app->emit($app->run());
+hubert($config);
+hubert()->emit(hubert()->run());
 ```
 
 For more see the example in this repository.
