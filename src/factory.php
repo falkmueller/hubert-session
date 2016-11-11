@@ -38,7 +38,7 @@ class factory {
             $container->httpUserAgent = $_SERVER['HTTP_USER_AGENT'];
         }
                 
-        $config = $this->container["config"]["session"];
+        $config = hubert()->config()->session;
 
         if(isset($config['validate_user_agend']) && !empty($config['validate_user_agend'])){
             if($_SERVER['HTTP_USER_AGENT'] !== $container->httpUserAgent){
@@ -57,7 +57,7 @@ class factory {
     
     private function getSessionManager(){
         $config = new StandardConfig();
-        $config->setOptions($this->container["config"]["session"]);
+        $config->setOptions(hubert()->config()->session);
         $manager = new SessionManager($config);
         
         return $manager;

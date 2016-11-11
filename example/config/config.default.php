@@ -9,7 +9,7 @@ return array(
                 "route" => "/", 
                 "method" => "GET|POST", 
                 "target" => function($request, $response, $args){
-                    $container = $this->getContainer();
+                    $container = hubert()->container();
                     
                     if (isset($container["session"]()->name)){
                         echo "Hello, ".$container["session"]()->name;
@@ -23,7 +23,7 @@ return array(
                 "route" => "/name/[:name]", 
                 "method" => "GET|POST", 
                 "target" => function($request, $response, $args){
-                    $container = $this->getContainer();
+                    $container = hubert()->container();
                 
                     $name = $args["name"];
                     $container["session"]()->name = $name;
