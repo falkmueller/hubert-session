@@ -40,11 +40,10 @@ $config = array(
                 "route" => "/", 
                 "method" => "GET|POST", 
                 "target" => function($request, $response, $args){
-                    $container = hubert()->container();     
-                    if (isset($container->session()->name)){
-                        echo "Hello, ".$container["session"]()->name;
+                    if (isset(hubert()->session()->name)){
+                        echo "Hello, ".hubert()->session()->name;
                     } else {
-                        $link = $container["router"]->get("setName", ["name" => "hubert"]);
+                        $link = hubert()->router->get("setName", ["name" => "hubert"]);
                         echo "call <a href='{$link}'>Set Name</a>";
                     }
                 }
@@ -53,18 +52,17 @@ $config = array(
                 "route" => "/name/[:name]", 
                 "method" => "GET|POST", 
                 "target" => function($request, $response, $args){
-                    $container = hubert()->container();     
                     $name = $args["name"];
-                    $container->session()->name = $name;
+                    hubert()->session()->name = $name;
                     echo "Name {$name} are set in session.<br/>";
-                    $link = $container["router"]->get("home");
+                    $link = hubert()->router->get("home");
                         echo "<a href='{$link}'>retrun</a>";
                 })
         ),
 );
 
 hubert($config);
-hubert()->emit(hubert()->run());
+hubert()->core()->run();
 ```
 
 For more see the example in this repository.

@@ -8,15 +8,8 @@ use hubert\extension\session\container as Container;
 
 class factory {
     
-    private $container;
-    
-    function __construct($container){
-        $this->container = $container;
-    }
-
-
     public static function get($container){
-        $facory = new static($container);
+        $facory = new static();
         $facory->init();
         
         return function ($sessionnamespace = "default") {
