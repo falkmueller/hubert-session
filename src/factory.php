@@ -28,13 +28,13 @@ class factory {
         if (!isset($container->init)) {
             $container->init = 1;
             $container->remoteAddr    = $_SERVER['REMOTE_ADDR'];
-            $container->httpUserAgent = $_SERVER['HTTP_USER_AGENT'];
+            $container->httpUserAgent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "";
         }
                 
         $config = hubert()->config()->session;
 
         if(isset($config['validate_user_agend']) && !empty($config['validate_user_agend'])){
-            if($_SERVER['HTTP_USER_AGENT'] !== $container->httpUserAgent){
+            if((isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "") !== $container->httpUserAgent){
                 $sessionManager->destroy(["clear_storage" => true]);
                 return;
             }
