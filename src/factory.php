@@ -27,21 +27,23 @@ class factory {
 
         if (!isset($container->init)) {
             $container->init = 1;
-            $container->remoteAddr    = $_SERVER['REMOTE_ADDR'];
+            $container->remoteAddr    = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : "";
             $container->httpUserAgent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "";
         }
                 
         $config = hubert()->config()->session;
 
         if(isset($config['validate_user_agend']) && !empty($config['validate_user_agend'])){
-            if((isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "") !== $container->httpUserAgent){
+            $httpUserAgent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "";
+            if($httpUserAgent !== $container->httpUserAgent){
                 $sessionManager->destroy(["clear_storage" => true]);
                 return;
             }
         }
         
         if(isset($config['validate_remote_addr']) && !empty($config['validate_remote_addr'])){
-           if($_SERVER['REMOTE_ADDR'] !== $container->remoteAddr){
+            $remoteAddr    = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : "";
+           if($remoteAddr !== $container->remoteAddr){
                 $sessionManager->destroy(["clear_storage" => true]);
                 return;
             }
