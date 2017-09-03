@@ -50,7 +50,7 @@ class factory {
         }
     }
     
-    private function getSessionManager(){
+    public function getSessionManager(){
         $config = new StandardConfig();
         $config->setOptions(hubert()->config()->session);
         $manager = new SessionManager($config);
